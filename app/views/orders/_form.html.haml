@@ -19,7 +19,15 @@
     = f.label :price
     = f.text_field :price
   .field
+    = f.label :brand
+    = collection_select :order, :brand_id, Brand.all, :id, :name
+  .field
     = f.label :paid_for_on
     = f.text_field :paid_for_on
+  =@mode.to_s
+  -if @mode == :edit
+    .field
+      = f.label :completed_on
+      = f.text_field :completed_on  
   .actions
     = f.submit 'Save'

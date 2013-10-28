@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.all.order(:completed_on)
   end
 
   # GET /orders/1
@@ -76,6 +76,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_name, :customer_email, :description, :price, :paid_for_on)
+      params.require(:order).permit(:customer_name, :customer_email, :description, 
+        :price, :paid_for_on, :completed_on, :brand_id)
     end
 end
