@@ -11,7 +11,10 @@
   = @order.description
 %p
   %b Brand:
-  = @order.brand.name if @order.brand
+  = @order.frame.brand.name if @order.frame.brand
+%p
+  %b Frame:
+  = @order.frame.name if @order.frame
 %p
   %b Price:
   = @order.price

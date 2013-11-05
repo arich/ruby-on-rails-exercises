@@ -4,6 +4,42 @@
   %b Name:
   = @brand.name
 
+%p
+  %b Orders:
+  %table
+    %tr
+      %th Customer name
+      %th Customer email
+      %th Description
+      %th Brand
+      %th Frame
+      %th Price
+      %th Paid for on
+      %th Completed on
+      %th
+      %th
+      %th
+      %th
+
+    - @brand.orders.paid.uncompleted.each do |order|
+      %tr
+        %td= order.customer_name
+        %td= order.customer_email
+        %td= order.description
+        %td= order.frame.brand.name if order.frame and order.frame.brand
+        %td= order.frame.name if order.frame
+        %td= order.price
+        %td= order.paid_for_on
+        %td= order.completed_on
+        %td= link_to 'Show', order
+        %td= link_to 'Edit', edit_order_path(order)
+        %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -if order.paid_for_on.nil?
+          %td= link_to 'Mark Paid', order_mark_paid_path(order), :method => :post, :data => {:confirm => 'Are you sure?'}
+        -if order.completed_on.nil?
+          %td= link_to 'Mark Completed', order_mark_completed_path(order), :method => :post, :data => {:confirm => 'Are you sure?'}  
+
+
 = link_to 'Edit', edit_brand_path(@brand)
 \|
 = link_to 'Back', brands_path

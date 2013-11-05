@@ -68,6 +68,13 @@ class OrdersController < ApplicationController
     redirect_to orders_url, notice: 'Order marked as paid'
   end
 
+  def mark_completed
+    order = Order.find(params[:order_id])
+    order.completed_on = Time.now
+    order.save
+    redirect_to orders_url, notice: 'Order marked as completed'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -77,6 +84,6 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:customer_name, :customer_email, :description, 
-        :price, :paid_for_on, :completed_on, :brand_id)
+        :price, :paid_for_on, :completed_on, :frame_id)
     end
 end

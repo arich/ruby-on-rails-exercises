@@ -7,6 +7,7 @@
       %th Customer email
       %th Description
       %th Brand
+      %th Frame
       %th Price
       %th Paid for on
       %th Completed on
@@ -20,7 +21,8 @@
         %td= order.customer_name
         %td= order.customer_email
         %td= order.description
-        %td= order.brand
+        %td= order.frame.brand.name if order.frame and order.frame.brand
+        %td= order.frame.name if order.frame
         %td= order.price
         %td= order.paid_for_on
         %td= order.completed_on
@@ -29,6 +31,8 @@
         %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
         -if order.paid_for_on.nil?
           %td= link_to 'Mark Paid', order_mark_paid_path(order), :method => :post, :data => {:confirm => 'Are you sure?'}
+        -if order.completed_on.nil?
+          %td= link_to 'Mark Completed', order_mark_completed_path(order), :method => :post, :data => {:confirm => 'Are you sure?'}  
 
   %br
 
